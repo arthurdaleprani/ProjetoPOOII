@@ -10,33 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Mae {  
-  id        Int     @id @default(autoincrement())   
-  nome       String
-  endereco   String
-  telefone   String
-  dataNasc   DateTime
+model Bebe {
+  idBebe    String   @id
+  nome      String
+  dataNasc  String
+  pesoNasc  String
+  nomeMae   String
+  altura    String
+  medicos   Medico[]
+  maes      Mae[]
 }
 
 model Medico {
-id        Int     @id @default(autoincrement())
-CRM        String
-nome       String
-endereco   String
-telefone   String
-especialidade String
-
+  idMed      Int      @id
+  idBebe     String
+  crm        String
+  nome       String
+  endereco   String
+  especialidade String
+  telefone   String
+  bebe       Bebe     @relation(fields: [idBebe], references: [idBebe])
 }
 
-model Bebes {
-  id        Int     @id @default(autoincrement())
-nome  String
-dataNasc DateTime
-pesoNasc String
-altura String
-nomeMae String
-
-
-
-
+model Mae {
+  idMed       Int      @id
+  idBebe     String
+  nome       String
+  endereco   String
+  telefone   String
+  dataNasc   String
+  bebe       Bebe     @relation(fields: [idBebe], references: [idBebe])
 }
+
