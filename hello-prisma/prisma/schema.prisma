@@ -10,7 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Mae {     
+model Mae {  
+  id        Int     @id @default(autoincrement())   
   nome       String
   endereco   String
   telefone   String
@@ -18,7 +19,7 @@ model Mae {
 }
 
 model Medico {
-
+id        Int     @id @default(autoincrement())
 CRM        String
 nome       String
 endereco   String
@@ -28,10 +29,11 @@ especialidade String
 }
 
 model Bebes {
+  id        Int     @id @default(autoincrement())
 nome  String
 dataNasc DateTime
 pesoNasc String
-altura float
+altura String
 nomeMae String
 
 
