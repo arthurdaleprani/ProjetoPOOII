@@ -10,35 +10,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Bebe {
-  idBebe    String   @id
-  nome      String
-  dataNasc  String
-  pesoNasc  String
-  nomeMae   String
-  altura    String
-  medicos   Medico[]
-  maes      Mae[]
-}
-
 model Medico {
-  idMed      Int      @id
-  idBebe     String
-  crm        String
-  nome       String
-  endereco   String
+  idMed        Int       @id
+  crm          String    @unique
+  nome         String
+  endereco     String
   especialidade String
-  telefone   String
-  bebe       Bebe     @relation(fields: [idBebe], references: [idBebe])
+  telefone     String
+  bebess       Bebe[]
 }
 
 model Mae {
-  idMed       Int      @id
-  idBebe     String
-  nome       String
+  idMae       Int      @id
   endereco   String
+  nome       String
   telefone   String
-  dataNasc   String
-  bebe       Bebe     @relation(fields: [idBebe], references: [idBebe])
+  dataNasc   DateTime
+  bebess     Bebe[]
 }
 
+model Bebe {
+  idBebe      Int       @id
+  idMed       Int
+  idMae       Int
+  nome        String
+  dataNasc    String
+  pesoNasc    String
+  nomeMae     String
+  altura      String
+  Medico      Medico    @relation(fields: [idMed], references: [idMed])
+  Mae         Mae       @relation(fields: [idMae], references: [idMae])
+}
